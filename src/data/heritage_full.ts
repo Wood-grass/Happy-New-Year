@@ -77,7 +77,7 @@ export function generateMockHeritages(targetCount: number): HeritageItem[] {
     
     // Encode prompt
     const encodedPrompt = encodeURIComponent(prompt);
-    const imageUrl = `https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=${encodedPrompt}&image_size=square_hd`;
+    const imageUrl = `https://coreva-normal.trae.ai/api/ide/v1/text_to_image?prompt=${encodedPrompt}&image_size=square_hd`;
 
     const newItem: HeritageItem = {
       id: String(currentId++),

@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "client:dev": "vite --host",
-    "predeploy": "npm run build",
+    "build:gh": "tsc -b && vite build --base=/Happy-New-Year/",
+    "predeploy": "npm run build:gh",
     "deploy": "gh-pages -d dist",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
