@@ -5,7 +5,7 @@ import { traeBadgePlugin } from 'vite-plugin-trae-solo-badge';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/trae-project-demo/',
+  base: '/Happy-New-Year/',
   plugins: [
     react({
       babel: {
