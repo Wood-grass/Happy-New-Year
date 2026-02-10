@@ -80,9 +80,29 @@ export function generateMockHeritages(targetCount: number): HeritageItem[] {
     // const imageUrl = `https://coreva-normal.trae.ai/api/ide/v1/text_to_image?prompt=${encodedPrompt}&image_size=square_hd`;
     
     const newItemId = String(currentId++);
-    // Use Lorem Picsum with consistent seed based on ID for stability
-    // Unsplash source API is often unstable or blocked
-    const imageUrl = `https://picsum.photos/seed/${newItemId}/400/400`;
+    
+    // Map nouns to specific LoremFlickr keywords for relevant images
+    const keywordMap: Record<string, string> = {
+      '剪纸': 'chinese,papercutting',
+      '刺绣': 'chinese,embroidery',
+      '陶艺': 'chinese,pottery',
+      '面塑': 'chinese,sculpture',
+      '灯彩': 'chinese,lantern',
+      '年画': 'chinese,painting',
+      '皮影': 'shadow,puppet',
+      '木雕': 'wood,carving',
+      '砖雕': 'brick,carving',
+      '蜡染': 'batik',
+      '银饰': 'silver,jewelry',
+      '漆器': 'lacquerware',
+      '竹编': 'bamboo,weaving',
+      '风筝': 'chinese,kite'
+    };
+    
+    const keywords = keywordMap[noun] || 'chinese,culture';
+    // Use LoremFlickr with keywords for relevant content
+    // Add lock query param based on ID to ensure stable image for each item but different across items
+    const imageUrl = `https://loremflickr.com/400/400/${keywords}?lock=${newItemId}`;
 
     const newItem: HeritageItem = {
       id: newItemId,
