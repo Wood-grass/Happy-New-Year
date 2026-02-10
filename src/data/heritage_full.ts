@@ -81,28 +81,29 @@ export function generateMockHeritages(targetCount: number): HeritageItem[] {
     
     const newItemId = String(currentId++);
     
-    // Map nouns to specific LoremFlickr keywords for relevant images
-    const keywordMap: Record<string, string> = {
-      '剪纸': 'chinese,papercutting',
-      '刺绣': 'chinese,embroidery',
-      '陶艺': 'chinese,pottery',
-      '面塑': 'chinese,sculpture',
-      '灯彩': 'chinese,lantern',
-      '年画': 'chinese,painting',
-      '皮影': 'shadow,puppet',
-      '木雕': 'wood,carving',
-      '砖雕': 'brick,carving',
-      '蜡染': 'batik',
-      '银饰': 'silver,jewelry',
-      '漆器': 'lacquerware',
-      '竹编': 'bamboo,weaving',
-      '风筝': 'chinese,kite'
+    // Map nouns to curated Unsplash Image IDs for high relevance and quality
+    // These IDs are stable and point to high-quality cultural photos
+    const UNSPLASH_IDS: Record<string, string[]> = {
+      '剪纸': ['1548690324-4299e19d4431', '1613426720309-c704f5e7143e', '1580126569429-1954848d5113'], // Paper cutting / red paper
+      '刺绣': ['1610052737568-7c8524317136', '1585848464687-0d32c448f804', '1589203832113-731557022a57'], // Embroidery / Fabric
+      '陶艺': ['1565193566173-7a0ee3227432', '1610701596707-62d022c42b5c', '1581337220022-794014d59f2a'], // Pottery / Ceramics
+      '面塑': ['1515264359404-58a36c61f224', '1582234033100-8438676d05f3', '1515585093558-4547211105c3'], // Sculpture / Figurines
+      '灯彩': ['1518018788975-f0941295d9c6', '1486745585817-49d63c52a061', '1548818503-455648873091'], // Lanterns
+      '年画': ['1515286226169-2f22c668b92d', '1517506648782-b3531b79f874', '1549556133-875c742c3005'], // Paintings / Red
+      '皮影': ['1535083252457-6080fe29be45', '1628004518706-e0e64f89d97a', '1618237626243-22839d37dc62'], // Shadow / Silhouette
+      '木雕': ['1603986872659-3226a2754c0e', '1615715757401-19ca296f8c85', '1587393855524-087f83d95bc9'], // Wood carving
+      '砖雕': ['1597818817366-0708502f61a0', '1610086918664-984487693952', '1624446460695-181514757134'], // Brick / Architecture
+      '蜡染': ['1583307525381-8b024476906a', '1628178652391-7f28743a6d97', '1526849479383-207d72c8429f'], // Batik / Blue fabric
+      '银饰': ['1612450030588-4660d5b62b14', '1576487238647-38e24483b8b6', '1605218427360-4050764d708e'], // Silver / Jewelry
+      '漆器': ['1606822368297-f50772275215', '1583095117917-205cb291665c', '1582126233261-754641e78044'], // Red / Lacquer
+      '竹编': ['1596135811053-d2d1445d430a', '1588614486844-486182c4f826', '1589365561081-3444458f385c'], // Bamboo
+      '风筝': ['1578357078588-d46059d481bc', '1533488765986-dfa2a9939acd', '1595166708605-728b78809c95']  // Kite
     };
     
-    const keywords = keywordMap[noun] || 'chinese,culture';
-    // Use LoremFlickr with keywords for relevant content
-    // Add lock query param based on ID to ensure stable image for each item but different across items
-    const imageUrl = `https://loremflickr.com/400/400/${keywords}?lock=${newItemId}`;
+    // Select a random ID from the list or fallback to a general cultural image
+    const ids = UNSPLASH_IDS[noun] || ['1515093112284-52264950bbfd', '1528164344705-4754268709dd', '1515264359404-58a36c61f224'];
+    const photoId = ids[randomInt(0, ids.length - 1)];
+    const imageUrl = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=400&h=400&q=80`;
 
     const newItem: HeritageItem = {
       id: newItemId,
