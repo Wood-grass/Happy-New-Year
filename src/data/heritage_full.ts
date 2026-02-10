@@ -73,11 +73,15 @@ export function generateMockHeritages(targetCount: number): HeritageItem[] {
     // Construct Prompt
     const nounPrompt = NOUN_MAP[noun] || 'Chinese traditional art';
     const adjPrompt = ADJ_MAP[adj] || 'traditional style';
-    const prompt = `close up shot of ${nounPrompt}, ${adjPrompt}, high quality, cultural heritage, ${noun === '皮影' || noun === '灯彩' ? 'lighting effect' : 'studio lighting'}`;
+    // const prompt = `close up shot of ${nounPrompt}, ${adjPrompt}, high quality, cultural heritage, ${noun === '皮影' || noun === '灯彩' ? 'lighting effect' : 'studio lighting'}`;
     
     // Encode prompt
-    const encodedPrompt = encodeURIComponent(prompt);
-    const imageUrl = `https://coreva-normal.trae.ai/api/ide/v1/text_to_image?prompt=${encodedPrompt}&image_size=square_hd`;
+    // const encodedPrompt = encodeURIComponent(prompt);
+    // const imageUrl = `https://coreva-normal.trae.ai/api/ide/v1/text_to_image?prompt=${encodedPrompt}&image_size=square_hd`;
+    
+    // Use Unsplash source as permanent fallback
+    const keywords = `${nounPrompt},${adjPrompt}`.replace(/ /g, ',');
+    const imageUrl = `https://source.unsplash.com/400x400/?chinese,culture,${noun === '剪纸' ? 'paper-cutting' : noun === '灯彩' ? 'lantern' : 'art'}`;
 
     const newItem: HeritageItem = {
       id: String(currentId++),
